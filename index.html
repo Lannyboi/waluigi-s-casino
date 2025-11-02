@@ -257,7 +257,7 @@ function determineWinner(){
   hitBtn.disabled=true; standBtn.disabled=true;
   betInput.disabled=false;
 
-  if(balance>=10000){ resultDiv.textContent='🎉 You hit $10,000! You win the casino! 🎉'; playAgainBtn.style.display='none'; }
+  if(balance>=100000){ resultDiv.textContent='🎉 You hit $10,000! You win the casino! 🎉'; playAgainBtn.style.display='none'; }
   else if(balance<=0){ resultDiv.textContent='💀 You are bankrupt! Game over! 💀'; playAgainBtn.style.display='none'; }
 }
 
