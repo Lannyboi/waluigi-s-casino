@@ -3,365 +3,411 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Waluigi’s Casino</title>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<title>🎰 Waluigi’s Casino 🎰</title>
+
 <style>
-/* ===== GLOBAL ===== */
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
 body {
-    margin: 0;
-    height: 100vh;
-    background: radial-gradient(circle at center, #1a0033 0%, #000010 100%);
-    color: #fff;
-    font-family: 'Orbitron', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+  background: radial-gradient(circle at center, #1a0029 0%, #0a0012 100%);
+  color: white;
+  font-family: 'Orbitron', sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
-/* ===== CONTAINERS ===== */
-#start-screen, #casino-container {
-    text-align: center;
-    max-width: 600px;
-    background: rgba(20, 10, 40, 0.8);
-    border-radius: 20px;
-    box-shadow: 0 0 40px #7000ff;
-    padding: 2rem;
-    animation: subtleGlow 6s ease-in-out infinite alternate;
+/* HEADER */
+header {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-/* ===== TITLE ===== */
 h1 {
-    color: #d000ff;
-    text-shadow: 0 0 20px #ff00ff, 0 0 40px #a000ff;
-    font-size: 2.5rem;
-    margin-bottom: 0.2rem;
-    animation: flicker 2s infinite;
+  font-size: 3rem;
+  color: #b517f0;
+  text-shadow: 0 0 15px #b517f0, 0 0 30px #ff00ff;
+  animation: pulse 2s infinite alternate;
 }
 
-.subtitle {
-    color: #00cfff;
-    text-shadow: 0 0 10px #00cfff;
-    font-size: 1rem;
-    margin-bottom: 1rem;
-}
-
-/* ===== BALANCE ===== */
-#balance {
-    font-size: 1.3rem;
-    color: #00ff9d;
-    text-shadow: 0 0 10px #00ff9d;
-    margin-bottom: 1.5rem;
-}
-
-/* ===== GAME BOARD ===== */
-.game-board {
-    display: flex;
-    justify-content: space-around;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-}
-
-.column h2 {
-    color: #ff00ff;
-    text-shadow: 0 0 10px #ff00ff;
-}
-
-.cards {
-    display: flex;
-    justify-content: center;
-    gap: 0.5rem;
-    margin: 0.5rem 0;
-}
-
-.card {
-    font-size: 1.4rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid #ff00ff;
-    border-radius: 8px;
-    padding: 0.5rem 0.7rem;
-    box-shadow: 0 0 10px #ff00ff;
-    animation: pulse 4s infinite;
-}
-
-/* ===== BUTTONS ===== */
-button {
-    font-size: 1rem;
-    padding: 0.6rem 1.2rem;
-    border: none;
-    border-radius: 10px;
-    color: #fff;
-    cursor: pointer;
-    text-transform: uppercase;
-    font-weight: bold;
-    letter-spacing: 1px;
-    margin: 0.5rem;
-    box-shadow: 0 0 15px;
-    transition: all 0.2s;
-}
-
-#play-btn {
-    background: #00ff9d;
-    box-shadow: 0 0 15px #00ff9d;
-}
-#play-btn:hover {
-    box-shadow: 0 0 30px #00ff9d;
-}
-
-#hit-btn {
-    background: #ff0;
-    color: #111;
-    box-shadow: 0 0 15px #ffff00;
-}
-#hit-btn:hover {
-    box-shadow: 0 0 25px #ffff66;
-}
-
-#stand-btn {
-    background: #ff00ff;
-    box-shadow: 0 0 15px #ff00ff;
-}
-#stand-btn:hover {
-    box-shadow: 0 0 25px #ff66ff;
-}
-
-#play-again-btn {
-    background: #00cfff;
-    box-shadow: 0 0 20px #00cfff;
-    display: none;
-}
-#play-again-btn:hover {
-    box-shadow: 0 0 35px #00ffff;
-}
-
-/* ===== RESULT ===== */
-#result {
-    font-size: 1.5rem;
-    text-shadow: 0 0 15px;
-    font-weight: bold;
-    margin-top: 1rem;
-}
-
-.lose {
-    color: #ff4040;
-    text-shadow: 0 0 20px #ff0000;
-}
-
-.win {
-    color: #00ff9d;
-    text-shadow: 0 0 20px #00ff9d;
-}
-
-/* ===== ANIMATIONS ===== */
-@keyframes flicker {
-    0%, 18%, 22%, 25%, 53%, 57%, 100% {
-        opacity: 1;
-        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #a000ff;
-    }
-    20%, 24%, 55% {
-        opacity: 0.6;
-        text-shadow: none;
-    }
+h2 {
+  font-size: 1rem;
+  color: #FFD700;
+  text-shadow: 0 0 10px #FFD700;
 }
 
 @keyframes pulse {
-    0% { box-shadow: 0 0 10px #ff00ff; }
-    50% { box-shadow: 0 0 20px #ff00ff; }
-    100% { box-shadow: 0 0 10px #ff00ff; }
+  from { text-shadow: 0 0 10px #b517f0; }
+  to { text-shadow: 0 0 30px #b517f0; }
 }
 
-@keyframes subtleGlow {
-    0% { box-shadow: 0 0 30px #7000ff; }
-    100% { box-shadow: 0 0 60px #a000ff; }
+/* GAME CONTAINER */
+.container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid #b517f0;
+  border-radius: 20px;
+  padding: 20px;
+  width: 90%;
+  max-width: 900px;
+  box-shadow: 0 0 30px #b517f0;
+}
+
+/* TEXT + BUTTONS */
+.balance {
+  font-size: 1.5rem;
+  color: #00FF9D;
+  text-shadow: 0 0 10px #00FF9D;
+  margin-bottom: 20px;
+}
+
+.columns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.card {
+  border: 1px solid #FFD700;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin: 5px;
+  font-size: 1.5rem;
+  text-shadow: 0 0 5px #FFD700;
+  min-width: 40px;
+  text-align: center;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+.card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.result {
+  margin: 15px;
+  font-size: 1.8rem;
+  font-weight: bold;
+  min-height: 40px;
+}
+
+.result.win {
+  color: #FFD700;
+  text-shadow: 0 0 15px #FFD700;
+}
+
+.result.lose {
+  color: #FF0066;
+  text-shadow: 0 0 15px #FF0066;
+}
+
+button {
+  background: transparent;
+  border: 2px solid #00CFFF;
+  color: white;
+  padding: 10px 25px;
+  font-size: 1.2rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px;
+}
+
+button:hover {
+  background: #00CFFF;
+  color: #0a0012;
+  box-shadow: 0 0 15px #00CFFF;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  h1 { font-size: 2.2rem; }
+  button { font-size: 1rem; padding: 8px 18px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ===== START SCREEN ===== -->
+<header>
+  <h1>🎰 Waluigi’s Casino 🎰</h1>
+  <h2>“It’s-a my turn to win!”</h2>
+</header>
+
+<!-- Start Screen -->
 <div id="start-screen">
-    <h1>Waluigi’s Casino</h1>
-    <p class="subtitle">It’s-a my turn to win!</p>
-    <button id="play-btn">🎰 Play Game</button>
+  <button id="play-btn">Play Game</button>
 </div>
 
-<!-- ===== GAME CONTAINER ===== -->
-<div id="casino-container" style="display: none;">
-    <header>
-        <h1>Waluigi’s Casino</h1>
-        <p class="subtitle">Blackjack Mode</p>
-    </header>
+<!-- Game Container -->
+<div class="container" id="game-container">
+  <div class="balance">💰 $1500</div>
 
-    <div id="balance">$1500</div>
-
-    <div class="game-board">
-        <div class="column" id="player-column">
-            <h2>PLAYER</h2>
-            <div class="cards" id="player-cards"></div>
-            <p id="player-total">Total: 0</p>
-        </div>
-
-        <div class="column" id="dealer-column">
-            <h2>DEALER</h2>
-            <div class="cards" id="dealer-cards"></div>
-            <p id="dealer-total">Total: 0</p>
-        </div>
+  <div class="columns">
+    <div class="column">
+      <h3>Player</h3>
+      <div class="cards" id="player-cards"></div>
+      <p id="player-total">Total: 0</p>
     </div>
-
-    <div id="controls">
-        <button id="hit-btn">HIT</button>
-        <button id="stand-btn">STAND</button>
-        <button id="play-again-btn">🔁 Play Again</button>
+    <div class="column">
+      <h3>Dealer</h3>
+      <div class="cards" id="dealer-cards"></div>
+      <p id="dealer-total">Total: ?</p>
     </div>
+  </div>
 
-    <div id="result"></div>
+  <div class="result"></div>
+
+  <div class="buttons">
+    <button class="hit">🎯 HIT</button>
+    <button class="stand">🛑 STAND</button>
+    <button class="play-again" style="display:none;">🔁 Play Again</button>
+  </div>
 </div>
+
+<!-- 🎵 Audio -->
+<audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_bcae960b77.mp3?filename=casino-night-124504.mp3"></audio>
+<audio id="deal-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4dfe9a2f16.mp3?filename=card-flip-1-98336.mp3"></audio>
+<audio id="win-sound" src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_68cfde7b33.mp3?filename=success-1-6297.mp3"></audio>
+<audio id="lose-sound" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_b7eb40b8c9.mp3?filename=fail-144746.mp3"></audio>
 
 <script>
-// ===== GAME LOGIC =====
+/* === GAME SCRIPT === */
 const suits = ['♠', '♥', '♦', '♣'];
-const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-
+const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
 let deck = [];
 let playerHand = [];
 let dealerHand = [];
 let balance = 1500;
 let gameOver = false;
+let dealerHidden = true;
+let animating = false;
 
 // Elements
-const startScreen = document.getElementById('start-screen');
-const casinoContainer = document.getElementById('casino-container');
-const playBtn = document.getElementById('play-btn');
-const hitBtn = document.getElementById('hit-btn');
-const standBtn = document.getElementById('stand-btn');
-const playAgainBtn = document.getElementById('play-again-btn');
 const playerCardsDiv = document.getElementById('player-cards');
 const dealerCardsDiv = document.getElementById('dealer-cards');
 const playerTotalP = document.getElementById('player-total');
 const dealerTotalP = document.getElementById('dealer-total');
-const resultDiv = document.getElementById('result');
-const balanceDiv = document.getElementById('balance');
+const resultDiv = document.querySelector('.result');
+const balanceDiv = document.querySelector('.balance');
+const hitBtn = document.querySelector('.hit');
+const standBtn = document.querySelector('.stand');
+const playAgainBtn = document.querySelector('.play-again');
+const startScreen = document.getElementById('start-screen');
+const gameContainer = document.getElementById('game-container');
+const playBtn = document.getElementById('play-btn');
 
-// ===== HELPER FUNCTIONS =====
+// Audio
+const bgMusic = document.getElementById('bg-music');
+const dealSound = document.getElementById('deal-sound');
+const winSound = document.getElementById('win-sound');
+const loseSound = document.getElementById('lose-sound');
+
+// Utilities
 function createDeck() {
-    deck = [];
-    for (let suit of suits) for (let value of values) deck.push({value, suit});
+  deck = [];
+  for (let s of suits) for (let v of values) deck.push({ value: v, suit: s });
 }
 
 function shuffleDeck() {
-    for (let i = deck.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [deck[i], deck[j]] = [deck[j], deck[i]];
-    }
+  for (let i = deck.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [deck[i], deck[j]] = [deck[j], deck[i]];
+  }
 }
 
 function drawCard() {
-    return deck.pop();
+  if (deck.length === 0) {
+    createDeck();
+    shuffleDeck();
+  }
+  return deck.pop();
 }
 
 function calculateTotal(hand) {
-    let total = 0;
-    let aces = 0;
-    for (let card of hand) {
-        if (['J','Q','K'].includes(card.value)) total += 10;
-        else if (card.value === 'A') { total += 11; aces++; }
-        else total += parseInt(card.value);
-    }
-    while (total > 21 && aces > 0) { total -= 10; aces--; }
-    return total;
+  let total = 0, aces = 0;
+  for (let c of hand) {
+    if (['J','Q','K'].includes(c.value)) total += 10;
+    else if (c.value === 'A') { total += 11; aces++; }
+    else total += parseInt(c.value);
+  }
+  while (total > 21 && aces > 0) { total -= 10; aces--; }
+  return total;
 }
 
-function updateDisplay() {
-    playerCardsDiv.innerHTML = '';
-    dealerCardsDiv.innerHTML = '';
+function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-    playerHand.forEach(c => {
-        const cardEl = document.createElement('div');
-        cardEl.className = 'card';
-        cardEl.textContent = `${c.value}${c.suit}`;
-        playerCardsDiv.appendChild(cardEl);
-    });
+async function dealCard(targetDiv, card, hide=false) {
+  animating = true;
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.textContent = hide ? '🂠' : `${card.value}${card.suit}`;
+  targetDiv.appendChild(el);
+  dealSound.currentTime = 0;
+  dealSound.play().catch(()=>{});
+  await sleep(300);
+  el.classList.add('show');
+  await sleep(100);
+  animating = false;
+}
 
-    dealerHand.forEach(c => {
-        const cardEl = document.createElement('div');
-        cardEl.className = 'card';
-        cardEl.textContent = `${c.value}${c.suit}`;
-        dealerCardsDiv.appendChild(cardEl);
-    });
-
-    playerTotalP.textContent = `Total: ${calculateTotal(playerHand)}`;
+function updateTotals() {
+  playerTotalP.textContent = `Total: ${calculateTotal(playerHand)}`;
+  if (dealerHidden) {
+    let visibleTotal = calculateTotal([dealerHand[0]]);
+    dealerTotalP.textContent = `Total: ${visibleTotal} + ?`;
+  } else {
     dealerTotalP.textContent = `Total: ${calculateTotal(dealerHand)}`;
+  }
 }
 
-// ===== GAME FLOW =====
-function newRound() {
-    createDeck();
-    shuffleDeck();
-    playerHand = [drawCard(), drawCard()];
-    dealerHand = [drawCard(), drawCard()];
-    gameOver = false;
-    resultDiv.textContent = '';
-    resultDiv.className = '';
-    playAgainBtn.style.display = 'none';
-    updateDisplay();
+async function revealDealer() {
+  dealerHidden = false;
+  dealerCardsDiv.innerHTML = '';
+  for (let c of dealerHand) {
+    await dealCard(dealerCardsDiv, c);
+  }
+  updateTotals();
 }
 
 function determineWinner() {
-    const playerTotal = calculateTotal(playerHand);
-    const dealerTotal = calculateTotal(dealerHand);
+  const playerTotal = calculateTotal(playerHand);
+  const dealerTotal = calculateTotal(dealerHand);
 
-    if (playerTotal > 21) {
-        resultDiv.textContent = 'You lose!';
-        resultDiv.classList.add('lose');
-        balance -= 100;
-    } else if (dealerTotal > 21 || playerTotal > dealerTotal) {
-        resultDiv.textContent = 'You win!';
-        resultDiv.classList.add('win');
-        balance += 100;
-    } else if (playerTotal < dealerTotal) {
-        resultDiv.textContent = 'You lose!';
-        resultDiv.classList.add('lose');
-        balance -= 100;
-    } else {
-        resultDiv.textContent = 'Push!';
-        resultDiv.style.color = '#00CFFF';
-    }
+  if (playerTotal > 21) {
+    resultDiv.textContent = 'You bust! You lose!';
+    loseSound.currentTime = 0;
+    loseSound.play().catch(()=>{});
+    resultDiv.className = 'result lose';
+    balance -= 100;
+  } else if (dealerTotal > 21 || playerTotal > dealerTotal) {
+    resultDiv.textContent = 'You win!';
+    winSound.currentTime = 0;
+    winSound.play().catch(()=>{});
+    resultDiv.className = 'result win';
+    balance += 100;
+  } else if (playerTotal < dealerTotal) {
+    resultDiv.textContent = 'Dealer wins!';
+    loseSound.currentTime = 0;
+    loseSound.play().catch(()=>{});
+    resultDiv.className = 'result lose';
+    balance -= 100;
+  } else {
+    resultDiv.textContent = 'Push!';
+    resultDiv.className = 'result';
+    resultDiv.style.color = '#00CFFF';
+  }
 
-    balanceDiv.textContent = `$${balance}`;
-    playAgainBtn.style.display = 'inline-block';
-    gameOver = true;
+  balanceDiv.textContent = `💰 $${balance}`;
+  playAgainBtn.style.display = 'inline-block';
+  gameOver = true;
 }
 
-function dealerPlay() {
-    while (calculateTotal(dealerHand) < 17) {
-        dealerHand.push(drawCard());
-    }
-    updateDisplay();
-    determineWinner();
+async function dealerPlay() {
+  if (animating || gameOver) return;
+  hitBtn.disabled = true;
+  standBtn.disabled = true;
+  await revealDealer();
+  while (calculateTotal(dealerHand) < 17) {
+    const card = drawCard();
+    dealerHand.push(card);
+    await dealCard(dealerCardsDiv, card);
+    updateTotals();
+  }
+  determineWinner();
+  hitBtn.disabled = false;
+  standBtn.disabled = false;
 }
 
-// ===== EVENT LISTENERS =====
-playBtn.addEventListener('click', () => {
-    startScreen.style.display = 'none';
-    casinoContainer.style.display = 'block';
-    newRound();
+// Buttons
+hitBtn.addEventListener('click', async () => {
+  if (gameOver || animating) return;
+  const card = drawCard();
+  playerHand.push(card);
+  await dealCard(playerCardsDiv, card);
+  updateTotals();
+  if (calculateTotal(playerHand) > 21) determineWinner();
 });
 
-hitBtn.addEventListener('click', () => {
-    if (gameOver) return;
-    playerHand.push(drawCard());
-    updateDisplay();
-    if (calculateTotal(playerHand) > 21) determineWinner();
+standBtn.addEventListener('click', dealerPlay);
+
+playAgainBtn.addEventListener('click', async () => {
+  if (animating) return;
+  await startRound();
 });
 
-standBtn.addEventListener('click', () => {
-    if (gameOver) return;
-    dealerPlay();
+playBtn.addEventListener('click', async () => {
+  startScreen.style.display = 'none';
+  gameContainer.style.display = 'flex';
+  bgMusic.volume = 0.4;
+  bgMusic.play().catch(()=>{});
+  await startRound();
 });
 
-playAgainBtn.addEventListener('click', () => {
-    newRound();
-});
+async function startRound() {
+  createDeck();
+  shuffleDeck();
+  playerHand = [];
+  dealerHand = [];
+  dealerHidden = true;
+  gameOver = false;
+  resultDiv.textContent = '';
+  resultDiv.className = 'result';
+  resultDiv.style.color = 'white';
+  playAgainBtn.style.display = 'none';
+  playerCardsDiv.innerHTML = '';
+  dealerCardsDiv.innerHTML = '';
+  playerTotalP.textContent = 'Total: 0';
+  dealerTotalP.textContent = 'Total: ?';
+
+  let card;
+
+  // Deal initial cards
+  card = drawCard();
+  playerHand.push(card);
+  await dealCard(playerCardsDiv, card);
+
+  card = drawCard();
+  dealerHand.push(card);
+  await dealCard(dealerCardsDiv, card);
+
+  card = drawCard();
+  playerHand.push(card);
+  await dealCard(playerCardsDiv, card);
+
+  card = drawCard();
+  dealerHand.push(card);
+  await dealCard(dealerCardsDiv, card, true);
+
+  updateTotals();
+}
 </script>
 </body>
 </html>
