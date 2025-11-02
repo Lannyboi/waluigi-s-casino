@@ -7,15 +7,13 @@
 
 <style>
 /* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* BODY */
 body {
-  background: radial-gradient(circle at center, #1a0029 0%, #0a0012 100%);
+  background: 
+    radial-gradient(circle at center, rgba(26,0,41,0.7) 0%, rgba(10,0,18,0.9) 100%),
+    url('images/WaluigiBackground.png') no-repeat center center;
+  background-size: cover;
   color: white;
   font-family: 'Orbitron', sans-serif;
   display: flex;
@@ -26,36 +24,25 @@ body {
   overflow-x: hidden;
 }
 
-/* HEADER */
-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
+header { text-align: center; margin-bottom: 20px; }
 h1 {
   font-size: 3rem;
   color: #b517f0;
   text-shadow: 0 0 15px #b517f0, 0 0 30px #ff00ff;
   animation: pulse 2s infinite alternate;
 }
-
-h2 {
-  font-size: 1rem;
-  color: #FFD700;
-  text-shadow: 0 0 10px #FFD700;
-}
+h2 { font-size: 1rem; color: #FFD700; text-shadow: 0 0 10px #FFD700; }
 
 @keyframes pulse {
   from { text-shadow: 0 0 10px #b517f0; }
   to { text-shadow: 0 0 30px #b517f0; }
 }
 
-/* GAME CONTAINER */
 .container {
   display: none;
   flex-direction: column;
   align-items: center;
-  background: rgba(0, 0, 0, 0.4);
+  background: rgba(0, 0, 0, 0.6);
   border: 2px solid #b517f0;
   border-radius: 20px;
   padding: 20px;
@@ -64,7 +51,22 @@ h2 {
   box-shadow: 0 0 30px #b517f0;
 }
 
-/* TEXT + BUTTONS */
+.bet-section {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#bet-amount {
+  width: 80px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #00CFFF;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
 .balance {
   font-size: 1.5rem;
   color: #00FF9D;
@@ -102,15 +104,12 @@ h2 {
   text-shadow: 0 0 5px #FFD700;
   min-width: 40px;
   text-align: center;
-  transition: all 0.3s ease;
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-30px);
+  transition: all 0.5s ease, opacity 0.5s ease;
 }
 
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+.card.show { opacity: 1; transform: translateY(0); }
 
 .result {
   margin: 15px;
@@ -119,15 +118,8 @@ h2 {
   min-height: 40px;
 }
 
-.result.win {
-  color: #FFD700;
-  text-shadow: 0 0 15px #FFD700;
-}
-
-.result.lose {
-  color: #FF0066;
-  text-shadow: 0 0 15px #FF0066;
-}
+.result.win { color: #FFD700; text-shadow: 0 0 15px #FFD700; }
+.result.lose { color: #FF0066; text-shadow: 0 0 15px #FF0066; }
 
 button {
   background: transparent;
@@ -140,14 +132,12 @@ button {
   transition: all 0.3s ease;
   margin: 10px;
 }
-
 button:hover {
   background: #00CFFF;
   color: #0a0012;
   box-shadow: 0 0 15px #00CFFF;
 }
 
-/* RESPONSIVE */
 @media (max-width: 768px) {
   h1 { font-size: 2.2rem; }
   button { font-size: 1rem; padding: 8px 18px; }
@@ -161,14 +151,18 @@ button:hover {
   <h2>“It’s-a my turn to win!”</h2>
 </header>
 
-<!-- Start Screen -->
 <div id="start-screen">
   <button id="play-btn">Play Game</button>
 </div>
 
-<!-- Game Container -->
 <div class="container" id="game-container">
   <div class="balance">💰 $1500</div>
+
+  <!-- Bet input -->
+  <div class="bet-section">
+    <label for="bet-amount">💰 Bet Amount:</label>
+    <input type="number" id="bet-amount" value="100" min="1">
+  </div>
 
   <div class="columns">
     <div class="column">
@@ -177,14 +171,13 @@ button:hover {
       <p id="player-total">Total: 0</p>
     </div>
     <div class="column">
-      <h3>Dealer</h3>
+      <h3>Waluigi</h3>
       <div class="cards" id="dealer-cards"></div>
       <p id="dealer-total">Total: ?</p>
     </div>
   </div>
 
   <div class="result"></div>
-
   <div class="buttons">
     <button class="hit">🎯 HIT</button>
     <button class="stand">🛑 STAND</button>
@@ -192,25 +185,19 @@ button:hover {
   </div>
 </div>
 
-<!-- 🎵 Audio -->
+<!-- AUDIO -->
 <audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_bcae960b77.mp3?filename=casino-night-124504.mp3"></audio>
 <audio id="deal-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4dfe9a2f16.mp3?filename=card-flip-1-98336.mp3"></audio>
 <audio id="win-sound" src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_68cfde7b33.mp3?filename=success-1-6297.mp3"></audio>
 <audio id="lose-sound" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_b7eb40b8c9.mp3?filename=fail-144746.mp3"></audio>
 
 <script>
-/* === GAME SCRIPT === */
-const suits = ['♠', '♥', '♦', '♣'];
-const values = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
-let deck = [];
-let playerHand = [];
-let dealerHand = [];
-let balance = 1500;
-let gameOver = false;
-let dealerHidden = true;
-let animating = false;
+const suits = ['♠','♥','♦','♣'];
+const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+let deck=[], playerHand=[], dealerHand=[];
+let balance = 1500, gameOver=false, dealerHidden=true, animating=false;
+let currentBet = 100;
 
-// Elements
 const playerCardsDiv = document.getElementById('player-cards');
 const dealerCardsDiv = document.getElementById('dealer-cards');
 const playerTotalP = document.getElementById('player-total');
@@ -223,188 +210,134 @@ const playAgainBtn = document.querySelector('.play-again');
 const startScreen = document.getElementById('start-screen');
 const gameContainer = document.getElementById('game-container');
 const playBtn = document.getElementById('play-btn');
+const betInput = document.getElementById('bet-amount');
 
-// Audio
 const bgMusic = document.getElementById('bg-music');
 const dealSound = document.getElementById('deal-sound');
 const winSound = document.getElementById('win-sound');
 const loseSound = document.getElementById('lose-sound');
 
-// Utilities
-function createDeck() {
-  deck = [];
-  for (let s of suits) for (let v of values) deck.push({ value: v, suit: s });
-}
+function createDeck(){ deck=[]; for(let s of suits) for(let v of values) deck.push({value:v,suit:s}); }
+function shuffleDeck(){ for(let i=deck.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [deck[i],deck[j]]=[deck[j],deck[i]]; }}
+function drawCard(){ if(deck.length===0){ createDeck(); shuffleDeck(); } return deck.pop(); }
+function calculateTotal(hand){ let t=0, aces=0; for(let c of hand){ if(['J','Q','K'].includes(c.value)) t+=10; else if(c.value==='A'){t+=11; aces++;} else t+=parseInt(c.value);} while(t>21 && aces>0){t-=10; aces--;} return t; }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
-function shuffleDeck() {
-  for (let i = deck.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [deck[i], deck[j]] = [deck[j], deck[i]];
-  }
-}
-
-function drawCard() {
-  if (deck.length === 0) {
-    createDeck();
-    shuffleDeck();
-  }
-  return deck.pop();
-}
-
-function calculateTotal(hand) {
-  let total = 0, aces = 0;
-  for (let c of hand) {
-    if (['J','Q','K'].includes(c.value)) total += 10;
-    else if (c.value === 'A') { total += 11; aces++; }
-    else total += parseInt(c.value);
-  }
-  while (total > 21 && aces > 0) { total -= 10; aces--; }
-  return total;
-}
-
-function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
-
-async function dealCard(targetDiv, card, hide=false) {
-  animating = true;
-  const el = document.createElement('div');
-  el.className = 'card';
-  el.textContent = hide ? '🂠' : `${card.value}${card.suit}`;
+async function dealCard(targetDiv, card, hide=false){
+  animating=true;
+  const el=document.createElement('div');
+  el.className='card';
+  el.textContent=hide?'🂠':`${card.value}${card.suit}`;
   targetDiv.appendChild(el);
-  dealSound.currentTime = 0;
-  dealSound.play().catch(()=>{});
-  await sleep(300);
-  el.classList.add('show');
+  dealSound.currentTime=0; dealSound.play().catch(()=>{});
   await sleep(100);
-  animating = false;
+  el.classList.add('show');
+  await sleep(300);
+  animating=false;
 }
 
-function updateTotals() {
-  playerTotalP.textContent = `Total: ${calculateTotal(playerHand)}`;
-  if (dealerHidden) {
-    let visibleTotal = calculateTotal([dealerHand[0]]);
-    dealerTotalP.textContent = `Total: ${visibleTotal} + ?`;
-  } else {
-    dealerTotalP.textContent = `Total: ${calculateTotal(dealerHand)}`;
-  }
+function updateTotals(){
+  playerTotalP.textContent=`Total: ${calculateTotal(playerHand)}`;
+  if(dealerHidden){
+    let vTotal = calculateTotal([dealerHand[0]]);
+    dealerTotalP.textContent=`Total: ${vTotal} + ?`;
+  } else dealerTotalP.textContent=`Total: ${calculateTotal(dealerHand)}`;
 }
 
-async function revealDealer() {
-  dealerHidden = false;
-  dealerCardsDiv.innerHTML = '';
-  for (let c of dealerHand) {
-    await dealCard(dealerCardsDiv, c);
-  }
+async function revealDealer(){
+  dealerHidden=false;
+  dealerCardsDiv.innerHTML='';
+  for(let c of dealerHand) await dealCard(dealerCardsDiv,c);
   updateTotals();
 }
 
-function determineWinner() {
-  const playerTotal = calculateTotal(playerHand);
-  const dealerTotal = calculateTotal(dealerHand);
+function determineWinner(){
+  currentBet = parseInt(betInput.value) || 1;
+  if(currentBet > balance) currentBet = balance;
 
-  if (playerTotal > 21) {
-    resultDiv.textContent = 'You bust! You lose!';
-    loseSound.currentTime = 0;
-    loseSound.play().catch(()=>{});
-    resultDiv.className = 'result lose';
-    balance -= 100;
-  } else if (dealerTotal > 21 || playerTotal > dealerTotal) {
-    resultDiv.textContent = 'You win!';
-    winSound.currentTime = 0;
-    winSound.play().catch(()=>{});
-    resultDiv.className = 'result win';
-    balance += 100;
-  } else if (playerTotal < dealerTotal) {
-    resultDiv.textContent = 'Dealer wins!';
-    loseSound.currentTime = 0;
-    loseSound.play().catch(()=>{});
-    resultDiv.className = 'result lose';
-    balance -= 100;
+  const pT = calculateTotal(playerHand), dT = calculateTotal(dealerHand);
+  if(pT>21){
+    resultDiv.textContent='You bust! You lose!';
+    loseSound.currentTime=0; loseSound.play().catch(()=>{});
+    resultDiv.className='result lose';
+    balance -= currentBet;
+  } else if(dT>21 || pT>dT){
+    resultDiv.textContent='You win!';
+    winSound.currentTime=0; winSound.play().catch(()=>{});
+    resultDiv.className='result win';
+    balance += currentBet;
+  } else if(pT<dT){
+    resultDiv.textContent='Waluigi wins!';
+    loseSound.currentTime=0; loseSound.play().catch(()=>{});
+    resultDiv.className='result lose';
+    balance -= currentBet;
   } else {
-    resultDiv.textContent = 'Push!';
-    resultDiv.className = 'result';
-    resultDiv.style.color = '#00CFFF';
+    resultDiv.textContent='Push!';
+    resultDiv.className='result';
+    resultDiv.style.color='#00CFFF';
   }
 
   balanceDiv.textContent = `💰 $${balance}`;
-  playAgainBtn.style.display = 'inline-block';
+  playAgainBtn.style.display='inline-block';
   gameOver = true;
+
+  // Check win/lose conditions
+  if(balance >= 10000){
+    resultDiv.textContent = '🎉 You hit $10,000! You win the casino! 🎉';
+    resultDiv.className = 'result win';
+    hitBtn.disabled = true;
+    standBtn.disabled = true;
+    playAgainBtn.style.display = 'none';
+  } else if(balance <= 0){
+    resultDiv.textContent = '💀 You are bankrupt! Game over! 💀';
+    resultDiv.className = 'result lose';
+    hitBtn.disabled = true;
+    standBtn.disabled = true;
+    playAgainBtn.style.display = 'none';
+  }
 }
 
-async function dealerPlay() {
-  if (animating || gameOver) return;
-  hitBtn.disabled = true;
-  standBtn.disabled = true;
+async function dealerPlay(){
+  if(animating||gameOver) return;
+  hitBtn.disabled=true; standBtn.disabled=true;
   await revealDealer();
-  while (calculateTotal(dealerHand) < 17) {
-    const card = drawCard();
-    dealerHand.push(card);
-    await dealCard(dealerCardsDiv, card);
-    updateTotals();
+  while(calculateTotal(dealerHand)<17){
+    const c=drawCard(); dealerHand.push(c); await dealCard(dealerCardsDiv,c); updateTotals();
   }
   determineWinner();
-  hitBtn.disabled = false;
-  standBtn.disabled = false;
+  hitBtn.disabled=false; standBtn.disabled=false;
 }
 
-// Buttons
-hitBtn.addEventListener('click', async () => {
-  if (gameOver || animating) return;
-  const card = drawCard();
-  playerHand.push(card);
-  await dealCard(playerCardsDiv, card);
-  updateTotals();
-  if (calculateTotal(playerHand) > 21) determineWinner();
+hitBtn.addEventListener('click', async ()=>{
+  if(gameOver||animating) return;
+  const c=drawCard(); playerHand.push(c); await dealCard(playerCardsDiv,c); updateTotals();
+  if(calculateTotal(playerHand)>21) determineWinner();
 });
 
 standBtn.addEventListener('click', dealerPlay);
 
-playAgainBtn.addEventListener('click', async () => {
-  if (animating) return;
+playAgainBtn.addEventListener('click', async ()=>{ if(animating) return; await startRound(); });
+
+playBtn.addEventListener('click', async ()=>{
+  startScreen.style.display='none'; gameContainer.style.display='flex';
+  bgMusic.volume=0.4; bgMusic.play().catch(()=>{});
   await startRound();
 });
 
-playBtn.addEventListener('click', async () => {
-  startScreen.style.display = 'none';
-  gameContainer.style.display = 'flex';
-  bgMusic.volume = 0.4;
-  bgMusic.play().catch(()=>{});
-  await startRound();
-});
+async function startRound(){
+  currentBet = parseInt(betInput.value) || 1;
+  if(currentBet > balance) currentBet = balance;
 
-async function startRound() {
-  createDeck();
-  shuffleDeck();
-  playerHand = [];
-  dealerHand = [];
-  dealerHidden = true;
-  gameOver = false;
-  resultDiv.textContent = '';
-  resultDiv.className = 'result';
-  resultDiv.style.color = 'white';
-  playAgainBtn.style.display = 'none';
-  playerCardsDiv.innerHTML = '';
-  dealerCardsDiv.innerHTML = '';
-  playerTotalP.textContent = 'Total: 0';
-  dealerTotalP.textContent = 'Total: ?';
+  createDeck(); shuffleDeck(); playerHand=[]; dealerHand=[]; dealerHidden=true; gameOver=false;
+  resultDiv.textContent=''; resultDiv.className='result'; resultDiv.style.color='white';
+  playAgainBtn.style.display='none'; playerCardsDiv.innerHTML=''; dealerCardsDiv.innerHTML='';
+  playerTotalP.textContent='Total: 0'; dealerTotalP.textContent='Total: ?';
 
   let card;
-
-  // Deal initial cards
-  card = drawCard();
-  playerHand.push(card);
-  await dealCard(playerCardsDiv, card);
-
-  card = drawCard();
-  dealerHand.push(card);
-  await dealCard(dealerCardsDiv, card);
-
-  card = drawCard();
-  playerHand.push(card);
-  await dealCard(playerCardsDiv, card);
-
-  card = drawCard();
-  dealerHand.push(card);
-  await dealCard(dealerCardsDiv, card, true);
+  card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card);
+  card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card);
+  card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card)
+  card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card,true);
 
   updateTotals();
 }
