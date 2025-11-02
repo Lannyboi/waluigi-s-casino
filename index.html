@@ -1,47 +1,367 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waluigi's Casino</title>
-    <link rel="stylesheet" href="index.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waluigi’s Casino</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+/* ===== GLOBAL ===== */
+body {
+    margin: 0;
+    height: 100vh;
+    background: radial-gradient(circle at center, #1a0033 0%, #000010 100%);
+    color: #fff;
+    font-family: 'Orbitron', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+/* ===== CONTAINERS ===== */
+#start-screen, #casino-container {
+    text-align: center;
+    max-width: 600px;
+    background: rgba(20, 10, 40, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 0 40px #7000ff;
+    padding: 2rem;
+    animation: subtleGlow 6s ease-in-out infinite alternate;
+}
+
+/* ===== TITLE ===== */
+h1 {
+    color: #d000ff;
+    text-shadow: 0 0 20px #ff00ff, 0 0 40px #a000ff;
+    font-size: 2.5rem;
+    margin-bottom: 0.2rem;
+    animation: flicker 2s infinite;
+}
+
+.subtitle {
+    color: #00cfff;
+    text-shadow: 0 0 10px #00cfff;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* ===== BALANCE ===== */
+#balance {
+    font-size: 1.3rem;
+    color: #00ff9d;
+    text-shadow: 0 0 10px #00ff9d;
+    margin-bottom: 1.5rem;
+}
+
+/* ===== GAME BOARD ===== */
+.game-board {
+    display: flex;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.column h2 {
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+}
+
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0;
+}
+
+.card {
+    font-size: 1.4rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid #ff00ff;
+    border-radius: 8px;
+    padding: 0.5rem 0.7rem;
+    box-shadow: 0 0 10px #ff00ff;
+    animation: pulse 4s infinite;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    font-size: 1rem;
+    padding: 0.6rem 1.2rem;
+    border: none;
+    border-radius: 10px;
+    color: #fff;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 0.5rem;
+    box-shadow: 0 0 15px;
+    transition: all 0.2s;
+}
+
+#play-btn {
+    background: #00ff9d;
+    box-shadow: 0 0 15px #00ff9d;
+}
+#play-btn:hover {
+    box-shadow: 0 0 30px #00ff9d;
+}
+
+#hit-btn {
+    background: #ff0;
+    color: #111;
+    box-shadow: 0 0 15px #ffff00;
+}
+#hit-btn:hover {
+    box-shadow: 0 0 25px #ffff66;
+}
+
+#stand-btn {
+    background: #ff00ff;
+    box-shadow: 0 0 15px #ff00ff;
+}
+#stand-btn:hover {
+    box-shadow: 0 0 25px #ff66ff;
+}
+
+#play-again-btn {
+    background: #00cfff;
+    box-shadow: 0 0 20px #00cfff;
+    display: none;
+}
+#play-again-btn:hover {
+    box-shadow: 0 0 35px #00ffff;
+}
+
+/* ===== RESULT ===== */
+#result {
+    font-size: 1.5rem;
+    text-shadow: 0 0 15px;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.lose {
+    color: #ff4040;
+    text-shadow: 0 0 20px #ff0000;
+}
+
+.win {
+    color: #00ff9d;
+    text-shadow: 0 0 20px #00ff9d;
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 40px #a000ff;
+    }
+    20%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow: none;
+    }
+}
+
+@keyframes pulse {
+    0% { box-shadow: 0 0 10px #ff00ff; }
+    50% { box-shadow: 0 0 20px #ff00ff; }
+    100% { box-shadow: 0 0 10px #ff00ff; }
+}
+
+@keyframes subtleGlow {
+    0% { box-shadow: 0 0 30px #7000ff; }
+    100% { box-shadow: 0 0 60px #a000ff; }
+}
+</style>
 </head>
 <body>
-    <div class="casino-container">
-        <header>
-            <h1 class="neon-title">Waluigi's Casino</h1>
-            <p class="subtitle flicker">It's-a my turn to win!</p>
-        </header>
 
-        <div class="balance glow">$1,500</div>
+<!-- ===== START SCREEN ===== -->
+<div id="start-screen">
+    <h1>Waluigi’s Casino</h1>
+    <p class="subtitle">It’s-a my turn to win!</p>
+    <button id="play-btn">🎰 Play Game</button>
+</div>
 
-        <div class="game-board">
-            <div class="column">
-                <h2>PLAYER</h2>
-                <div class="cards">
-                    <div class="card">A♠</div>
-                    <div class="card">♥A</div>
-                </div>
-                <p>Total: 17</p>
-            </div>
+<!-- ===== GAME CONTAINER ===== -->
+<div id="casino-container" style="display: none;">
+    <header>
+        <h1>Waluigi’s Casino</h1>
+        <p class="subtitle">Blackjack Mode</p>
+    </header>
 
-            <div class="column">
-                <h2>DEALER</h2>
-                <div class="cards">
-                    <div class="card">♣A</div>
-                    <div class="card">♦A</div>
-                </div>
-                <p>Total: 17</p>
-            </div>
+    <div id="balance">$1500</div>
+
+    <div class="game-board">
+        <div class="column" id="player-column">
+            <h2>PLAYER</h2>
+            <div class="cards" id="player-cards"></div>
+            <p id="player-total">Total: 0</p>
         </div>
 
-        <div class="controls">
-            <button class="btn hit pulse">HIT</button>
-            <button class="btn stand pulse">STAND</button>
+        <div class="column" id="dealer-column">
+            <h2>DEALER</h2>
+            <div class="cards" id="dealer-cards"></div>
+            <p id="dealer-total">Total: 0</p>
         </div>
-
-        <div class="result lose glow-flicker">You lose!</div>
     </div>
+
+    <div id="controls">
+        <button id="hit-btn">HIT</button>
+        <button id="stand-btn">STAND</button>
+        <button id="play-again-btn">🔁 Play Again</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+// ===== GAME LOGIC =====
+const suits = ['♠', '♥', '♦', '♣'];
+const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+
+let deck = [];
+let playerHand = [];
+let dealerHand = [];
+let balance = 1500;
+let gameOver = false;
+
+// Elements
+const startScreen = document.getElementById('start-screen');
+const casinoContainer = document.getElementById('casino-container');
+const playBtn = document.getElementById('play-btn');
+const hitBtn = document.getElementById('hit-btn');
+const standBtn = document.getElementById('stand-btn');
+const playAgainBtn = document.getElementById('play-again-btn');
+const playerCardsDiv = document.getElementById('player-cards');
+const dealerCardsDiv = document.getElementById('dealer-cards');
+const playerTotalP = document.getElementById('player-total');
+const dealerTotalP = document.getElementById('dealer-total');
+const resultDiv = document.getElementById('result');
+const balanceDiv = document.getElementById('balance');
+
+// ===== HELPER FUNCTIONS =====
+function createDeck() {
+    deck = [];
+    for (let suit of suits) for (let value of values) deck.push({value, suit});
+}
+
+function shuffleDeck() {
+    for (let i = deck.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+}
+
+function drawCard() {
+    return deck.pop();
+}
+
+function calculateTotal(hand) {
+    let total = 0;
+    let aces = 0;
+    for (let card of hand) {
+        if (['J','Q','K'].includes(card.value)) total += 10;
+        else if (card.value === 'A') { total += 11; aces++; }
+        else total += parseInt(card.value);
+    }
+    while (total > 21 && aces > 0) { total -= 10; aces--; }
+    return total;
+}
+
+function updateDisplay() {
+    playerCardsDiv.innerHTML = '';
+    dealerCardsDiv.innerHTML = '';
+
+    playerHand.forEach(c => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'card';
+        cardEl.textContent = `${c.value}${c.suit}`;
+        playerCardsDiv.appendChild(cardEl);
+    });
+
+    dealerHand.forEach(c => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'card';
+        cardEl.textContent = `${c.value}${c.suit}`;
+        dealerCardsDiv.appendChild(cardEl);
+    });
+
+    playerTotalP.textContent = `Total: ${calculateTotal(playerHand)}`;
+    dealerTotalP.textContent = `Total: ${calculateTotal(dealerHand)}`;
+}
+
+// ===== GAME FLOW =====
+function newRound() {
+    createDeck();
+    shuffleDeck();
+    playerHand = [drawCard(), drawCard()];
+    dealerHand = [drawCard(), drawCard()];
+    gameOver = false;
+    resultDiv.textContent = '';
+    resultDiv.className = '';
+    playAgainBtn.style.display = 'none';
+    updateDisplay();
+}
+
+function determineWinner() {
+    const playerTotal = calculateTotal(playerHand);
+    const dealerTotal = calculateTotal(dealerHand);
+
+    if (playerTotal > 21) {
+        resultDiv.textContent = 'You lose!';
+        resultDiv.classList.add('lose');
+        balance -= 100;
+    } else if (dealerTotal > 21 || playerTotal > dealerTotal) {
+        resultDiv.textContent = 'You win!';
+        resultDiv.classList.add('win');
+        balance += 100;
+    } else if (playerTotal < dealerTotal) {
+        resultDiv.textContent = 'You lose!';
+        resultDiv.classList.add('lose');
+        balance -= 100;
+    } else {
+        resultDiv.textContent = 'Push!';
+        resultDiv.style.color = '#00CFFF';
+    }
+
+    balanceDiv.textContent = `$${balance}`;
+    playAgainBtn.style.display = 'inline-block';
+    gameOver = true;
+}
+
+function dealerPlay() {
+    while (calculateTotal(dealerHand) < 17) {
+        dealerHand.push(drawCard());
+    }
+    updateDisplay();
+    determineWinner();
+}
+
+// ===== EVENT LISTENERS =====
+playBtn.addEventListener('click', () => {
+    startScreen.style.display = 'none';
+    casinoContainer.style.display = 'block';
+    newRound();
+});
+
+hitBtn.addEventListener('click', () => {
+    if (gameOver) return;
+    playerHand.push(drawCard());
+    updateDisplay();
+    if (calculateTotal(playerHand) > 21) determineWinner();
+});
+
+standBtn.addEventListener('click', () => {
+    if (gameOver) return;
+    dealerPlay();
+});
+
+playAgainBtn.addEventListener('click', () => {
+    newRound();
+});
+</script>
 </body>
 </html>
-
