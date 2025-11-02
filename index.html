@@ -156,17 +156,17 @@ button:hover { background:#00CFFF; color:#0a0012; box-shadow:0 0 15px #00CFFF; }
 <div id="lore-modal">
     <button class="close-btn">✖ Close</button>
     <p>The shadows of the Mushroom Kingdom had always clung to Waluigi. Long, lanky, and perpetually overlooked, he had spent his life standing beside his brother-in-arms, Luigi’s shadow stretched impossibly long across the land, while he remained the punchline, the perennial side character, the one nobody invited to the main event.</p>
-<br>
+    <br>
     <p>One night, beneath a sickle moon, he slumped alone atop a rusted Goomba tower, staring at the horizon where fireworks marked another tournament. He was tired. Tired of losing. Tired of being invisible. And then, something dark and irresistible whispered: <em>If the world won’t play your game… make your own.</em></p>
-<br>
+    <br>
     <p>Waluigi disappeared for weeks. Rumors twisted through the Mushroom Kingdom like dry wind: Waluigi had been seen in the deepest alleyways of Toad Town, speaking with shady Boo financiers, counting coins in flickering neon reflections, and laughing in a way that chilled even Bowser Jr.’s heart.</p>
-<br>
+    <br>
     <p>When he returned, he didn’t return as a competitor. He returned as the king of chance. A towering, opulent casino had sprouted overnight in the darkest corner of the kingdom—a twisted palace of spinning roulette wheels, clattering dice, and the hypnotic glow of slot machines. The sign above read, in gleaming purple and gold: <strong>“Waluigi’s Wager”</strong>.</p>
-<br>
+    <br>
     <p>Inside, the rules bent to his will. Cards didn’t always fall where expected, dice rolled with a whisper of mischief, and machines seemed to favor those daring enough to flirt with chaos. Waluigi, his purple suit slick and his grin sharper than ever, presided over it all. Patrons weren’t just playing—they were <em>performing</em>, dancing to the rhythm of his cunning, drawn in by the promise of risk, thrill, and the intoxicating scent of revenge.</p>
-<br>
+    <br>
     <p>Waluigi had become more than relevant; he had become inevitable. The overlooked underdog had turned his frustration into fortune, his obscurity into authority. Those who once laughed at him now placed bets under the gaze of a man who had finally claimed the stage he deserved—not as a participant, but as the master of the game itself.</p>
-<br>
+    <br>
     <p>And in the dim corners, where whispers of his old losses lingered, Waluigi only smiled wider. Losing had been a lesson. Being forgotten had been a strategy. And now… <em>everyone was playing by his rules.</em></p>
 </div>
 
@@ -263,15 +263,18 @@ function determineWinner(){
 
 // DEALER PLAY LOGIC
 async function dealerPlay(){
+  if(animating || gameOver) return; // prevent spamming
+  animating = true;
   await revealDealer();
   while(calculateTotal(dealerHand)<17){
     let card=drawCard();
     dealerHand.push(card);
     await dealCard(dealerCardsDiv,card);
-    updateTotals(); // <--- update after each card
+    updateTotals(); 
     await sleep(300);
   }
   determineWinner();
+  animating=false;
 }
 
 // START ROUND
