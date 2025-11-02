@@ -3,11 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Waluigi's casino</title>
+    <title>Waluigi's Casino</title>
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <h1>Hello world</h1>
-    <script src="index.js"></script>
+    <div class="casino-container">
+        <header>
+            <h1 class="neon-title">Waluigi's Casino</h1>
+            <p class="subtitle flicker">It's-a my turn to win!</p>
+        </header>
+
+        <div class="balance glow">$1,500</div>
+
+        <div class="game-board">
+            <div class="column">
+                <h2>PLAYER</h2>
+                <div class="cards">
+                    <div class="card">A♠</div>
+                    <div class="card">♥A</div>
+                </div>
+                <p>Total: 17</p>
+            </div>
+
+            <div class="column">
+                <h2>DEALER</h2>
+                <div class="cards">
+                    <div class="card">♣A</div>
+                    <div class="card">♦A</div>
+                </div>
+                <p>Total: 17</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn hit pulse">HIT</button>
+            <button class="btn stand pulse">STAND</button>
+        </div>
+
+        <div class="result lose glow-flicker">You lose!</div>
+    </div>
 </body>
 </html>
+
