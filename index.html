@@ -4,170 +4,114 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🎰 Waluigi’s Casino 🎰</title>
-
 <style>
 /* RESET */
-* { margin: 0; padding: 0; box-sizing: border-box; }
+* { margin:0; padding:0; box-sizing:border-box; }
 
 body {
   background: 
     radial-gradient(circle at center, rgba(26,0,41,0.7) 0%, rgba(10,0,18,0.9) 100%),
     url('images/WaluigiBackground.png') no-repeat center center;
   background-size: cover;
-  color: white;
-  font-family: 'Orbitron', sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  overflow-x: hidden;
+  color:white;
+  font-family:'Orbitron',sans-serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  height:100vh;
+  overflow-x:hidden;
 }
 
-header { text-align: center; margin-bottom: 20px; }
+header { text-align:center; margin-bottom:20px; }
 h1 {
-  font-size: 3rem;
-  color: #b517f0;
-  text-shadow: 0 0 15px #b517f0, 0 0 30px #ff00ff;
-  animation: pulse 2s infinite alternate;
+  font-size:3rem;
+  color:#b517f0;
+  text-shadow:0 0 15px #b517f0,0 0 30px #ff00ff;
+  animation:pulse 2s infinite alternate;
 }
-h2 { font-size: 1rem; color: #FFD700; text-shadow: 0 0 10px #FFD700; }
+h2 { font-size:1rem; color:#FFD700; text-shadow:0 0 10px #FFD700; }
 
-@keyframes pulse {
-  from { text-shadow: 0 0 10px #b517f0; }
-  to { text-shadow: 0 0 30px #b517f0; }
-}
+@keyframes pulse { from{ text-shadow:0 0 10px #b517f0;} to{ text-shadow:0 0 30px #b517f0;} }
 
 .container {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.6);
-  border: 2px solid #b517f0;
-  border-radius: 20px;
-  padding: 20px;
-  width: 90%;
-  max-width: 900px;
-  box-shadow: 0 0 30px #b517f0;
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  background:rgba(0,0,0,0.6);
+  border:2px solid #b517f0;
+  border-radius:20px;
+  padding:20px;
+  width:90%;
+  max-width:900px;
+  box-shadow:0 0 30px #b517f0;
 }
 
-.bet-section {
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+.bet-section { margin-bottom:15px; display:flex; align-items:center; gap:10px; }
 #bet-amount {
-  width: 80px;
-  padding: 5px 10px;
-  font-size: 1rem;
-  border-radius: 8px;
-  border: 1px solid #00CFFF;
-  background: rgba(255, 255, 255, 0.1);
-  color: white;
+  width:80px; padding:5px 10px; font-size:1rem;
+  border-radius:8px; border:1px solid #00CFFF;
+  background:rgba(255,255,255,0.1); color:white;
 }
 
-.balance {
-  font-size: 1.5rem;
-  color: #00FF9D;
-  text-shadow: 0 0 10px #00FF9D;
-  margin-bottom: 20px;
-}
+.balance { font-size:1.5rem; color:#00FF9D; text-shadow:0 0 10px #00FF9D; margin-bottom:20px; }
 
-.columns {
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-  flex-wrap: wrap;
-}
+.columns { display:flex; justify-content:space-around; width:100%; flex-wrap:wrap; }
+.column { display:flex; flex-direction:column; align-items:center; margin:10px; }
 
-.column {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 10px;
-}
-
-.cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
+.cards { display:flex; flex-wrap:wrap; justify-content:center; }
 
 .card {
-  border: 1px solid #FFD700;
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px;
-  margin: 5px;
-  font-size: 1.5rem;
-  text-shadow: 0 0 5px #FFD700;
-  min-width: 40px;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(-30px);
-  transition: all 0.5s ease, opacity 0.5s ease;
+  border:1px solid #FFD700;
+  border-radius:10px;
+  background:rgba(255,255,255,0.1);
+  padding:10px;
+  margin:5px;
+  font-size:1.5rem;
+  text-shadow:0 0 5px #FFD700;
+  min-width:40px;
+  text-align:center;
+  opacity:0;
+  transform:translateY(-30px);
+  transition:all 0.5s ease, opacity 0.5s ease;
 }
+.card.show { opacity:1; transform:translateY(0); }
 
-.card.show { opacity: 1; transform: translateY(0); }
-
-.result {
-  margin: 15px;
-  font-size: 1.8rem;
-  font-weight: bold;
-  min-height: 40px;
-}
-
-.result.win { color: #FFD700; text-shadow: 0 0 15px #FFD700; }
-.result.lose { color: #FF0066; text-shadow: 0 0 15px #FF0066; }
+.result { margin:15px; font-size:1.8rem; font-weight:bold; min-height:40px; }
+.result.win { color:#FFD700; text-shadow:0 0 15px #FFD700; }
+.result.lose { color:#FF0066; text-shadow:0 0 15px #FF0066; }
 
 button {
-  background: transparent;
-  border: 2px solid #00CFFF;
-  color: white;
-  padding: 10px 25px;
-  font-size: 1.2rem;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin: 10px;
+  background:transparent;
+  border:2px solid #00CFFF;
+  color:white;
+  padding:10px 25px;
+  font-size:1.2rem;
+  border-radius:25px;
+  cursor:pointer;
+  transition:all 0.3s ease;
+  margin:10px;
 }
-button:hover {
-  background: #00CFFF;
-  color: #0a0012;
-  box-shadow: 0 0 15px #00CFFF;
-}
+button:hover { background:#00CFFF; color:#0a0012; box-shadow:0 0 15px #00CFFF; }
 
 /* Lore Modal */
 #lore-modal {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; width: 100%; height: 100%;
-  background: rgba(0,0,0,0.85);
-  color: #FFD700;
-  font-family: 'Orbitron', sans-serif;
-  padding: 50px 20px;
-  overflow-y: auto;
-  z-index: 1000;
+  display:none;
+  position:fixed; top:0; left:0; width:100%; height:100%;
+  background:rgba(0,0,0,0.85);
+  color:#FFD700;
+  font-family:'Orbitron',sans-serif;
+  padding:50px 20px;
+  overflow-y:auto;
+  z-index:1000;
 }
-
 #lore-modal .close-btn {
-  background: #b517f0;
-  border: none;
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  border-radius: 10px;
-  cursor: pointer;
-  margin-bottom: 20px;
-  color: white;
+  background:#b517f0; border:none; padding:10px 20px; font-size:1.2rem;
+  border-radius:10px; cursor:pointer; margin-bottom:20px; color:white;
 }
+#lore-modal h2 { margin-bottom:15px; color:#FF69B4; }
 
-#lore-modal h2 { margin-bottom: 15px; color: #FF69B4; }
-
-@media (max-width: 768px) {
-  h1 { font-size: 2.2rem; }
-  button { font-size: 1rem; padding: 8px 18px; }
-}
+@media (max-width:768px){ h1{ font-size:2.2rem; } button{ font-size:1rem; padding:8px 18px; } }
 </style>
 </head>
 <body>
@@ -178,14 +122,11 @@ button:hover {
   <button id="lore-btn">📜 Lore</button>
 </header>
 
-<div id="start-screen">
-  <button id="play-btn">Play Game</button>
-</div>
+<div id="start-screen"><button id="play-btn">Play Game</button></div>
 
 <div class="container" id="game-container">
   <div class="balance">💰 $1500</div>
 
-  <!-- Bet input -->
   <div class="bet-section">
     <label for="bet-amount">💰 Bet Amount:</label>
     <input type="number" id="bet-amount" value="100" min="1">
@@ -212,45 +153,34 @@ button:hover {
   </div>
 </div>
 
-<!-- Lore Modal -->
 <div id="lore-modal">
-  <button class="close-btn">✖ Close</button>
-  <h2>The Dark Lore of Waluigi’s Casino</h2>
-  <p>
-    In the forgotten corners of the Mushroom Kingdom, where glitches fester and shadows linger, Waluigi plotted his vengeance. A lifetime of losses had hardened him—every tennis match, every kart race, every tournament had chipped away at his patience, and every humiliation had sharpened his cunning.
-  </p>
-  <p>
-    So he disappeared into the digital void, a place no plumber dared to tread. There, in the silent glow of corrupted data streams, he forged his own empire: a casino not of brick and mortar, but of code and chaos.
-  </p>
-  <p>
-    The neon lights pulse with the beat of his fury. Chips are minted from his bitterness, and each deck of cards is shuffled with the precision of a mind consumed by obsession. To enter is to gamble more than coins—you wager your pride, your nerve, your very sense of reality.
-  </p>
-  <p>
-    Players whisper of the hidden rules, the traps encoded deep in the algorithm, and the laughter that echoes through empty servers when someone dares to win too much. They say Waluigi’s eyes watch from every shadow, calculating, waiting, and remembering every slight.
-  </p>
-  <p>
-    And if fortune favors you enough to reach the pinnacle of his neon fortress, a distorted voice may hiss through your speakers, cold and triumphant: <br>
-    <em>“Finally… my moment. Remember this face, for luck will never again leave it.”</em>
-  </p>
-  <p>Few leave unchanged. Fewer leave at all.</p>
+    <button class="close-btn">✖ Close</button>
+    <p>The shadows of the Mushroom Kingdom had always clung to Waluigi. Long, lanky, and perpetually overlooked, he had spent his life standing beside his brother-in-arms, Luigi’s shadow stretched impossibly long across the land, while he remained the punchline, the perennial side character, the one nobody invited to the main event.</p>
+<br>
+    <p>One night, beneath a sickle moon, he slumped alone atop a rusted Goomba tower, staring at the horizon where fireworks marked another tournament. He was tired. Tired of losing. Tired of being invisible. And then, something dark and irresistible whispered: <em>If the world won’t play your game… make your own.</em></p>
+<br>
+    <p>Waluigi disappeared for weeks. Rumors twisted through the Mushroom Kingdom like dry wind: Waluigi had been seen in the deepest alleyways of Toad Town, speaking with shady Boo financiers, counting coins in flickering neon reflections, and laughing in a way that chilled even Bowser Jr.’s heart.</p>
+<br>
+    <p>When he returned, he didn’t return as a competitor. He returned as the king of chance. A towering, opulent casino had sprouted overnight in the darkest corner of the kingdom—a twisted palace of spinning roulette wheels, clattering dice, and the hypnotic glow of slot machines. The sign above read, in gleaming purple and gold: <strong>“Waluigi’s Wager”</strong>.</p>
+<br>
+    <p>Inside, the rules bent to his will. Cards didn’t always fall where expected, dice rolled with a whisper of mischief, and machines seemed to favor those daring enough to flirt with chaos. Waluigi, his purple suit slick and his grin sharper than ever, presided over it all. Patrons weren’t just playing—they were <em>performing</em>, dancing to the rhythm of his cunning, drawn in by the promise of risk, thrill, and the intoxicating scent of revenge.</p>
+<br>
+    <p>Waluigi had become more than relevant; he had become inevitable. The overlooked underdog had turned his frustration into fortune, his obscurity into authority. Those who once laughed at him now placed bets under the gaze of a man who had finally claimed the stage he deserved—not as a participant, but as the master of the game itself.</p>
+<br>
+    <p>And in the dim corners, where whispers of his old losses lingered, Waluigi only smiled wider. Losing had been a lesson. Being forgotten had been a strategy. And now… <em>everyone was playing by his rules.</em></p>
 </div>
 
 <script>
-// LORE BUTTON
+// LORE
 const loreBtn = document.getElementById('lore-btn');
 const loreModal = document.getElementById('lore-modal');
-const closeLoreBtn = loreModal.querySelector('.close-btn');
-
-loreBtn.addEventListener('click', () => { loreModal.style.display = 'block'; });
-closeLoreBtn.addEventListener('click', () => { loreModal.style.display = 'none'; });
-window.addEventListener('click', e => { if(e.target==loreModal) loreModal.style.display='none'; });
+loreBtn.addEventListener('click', ()=>loreModal.style.display='block');
+loreModal.querySelector('.close-btn').addEventListener('click', ()=>loreModal.style.display='none');
+window.addEventListener('click', e=>{ if(e.target==loreModal) loreModal.style.display='none'; });
 
 // GAME SCRIPT
-const suits = ['♠','♥','♦','♣'];
-const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
-let deck=[], playerHand=[], dealerHand=[];
-let balance=1500, gameOver=false, dealerHidden=true, animating=false;
-let currentBet=100;
+const suits=['♠','♥','♦','♣'], values=['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
+let deck=[], playerHand=[], dealerHand=[], balance=1500, gameOver=false, dealerHidden=true, animating=false, currentBet=100;
 
 const playerCardsDiv=document.getElementById('player-cards');
 const dealerCardsDiv=document.getElementById('dealer-cards');
@@ -266,12 +196,23 @@ const gameContainer=document.getElementById('game-container');
 const playBtn=document.getElementById('play-btn');
 const betInput=document.getElementById('bet-amount');
 
+// UTILS
 function createDeck(){ deck=[]; for(let s of suits) for(let v of values) deck.push({value:v,suit:s}); }
 function shuffleDeck(){ for(let i=deck.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [deck[i],deck[j]]=[deck[j],deck[i]]; } }
 function drawCard(){ if(deck.length===0){ createDeck(); shuffleDeck(); } return deck.pop(); }
-function calculateTotal(hand){ let t=0, aces=0; for(let c of hand){ if(['J','Q','K'].includes(c.value)) t+=10; else if(c.value==='A'){t+=11; aces++;} else t+=parseInt(c.value);} while(t>21 && aces>0){t-=10; aces--;} return t; }
+function calculateTotal(hand){ 
+  let total=0, aces=0;
+  for(let c of hand){
+    if(['J','Q','K'].includes(c.value)) total+=10;
+    else if(c.value==='A'){ total+=11; aces++; }
+    else total+=parseInt(c.value);
+  }
+  while(total>21 && aces>0){ total-=10; aces--; }
+  return total;
+}
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
 
+// DEAL CARD ANIMATION
 async function dealCard(targetDiv, card, hide=false){
   animating=true;
   const el=document.createElement('div');
@@ -284,11 +225,17 @@ async function dealCard(targetDiv, card, hide=false){
   animating=false;
 }
 
+// UPDATE TOTALS
 function updateTotals(){
   playerTotalP.textContent=`Total: ${calculateTotal(playerHand)}`;
-  dealerTotalP.textContent = dealerHidden ? `Total: ${calculateTotal([dealerHand[0]])} + ?` : `Total: ${calculateTotal(dealerHand)}`;
+  if(dealerHidden){
+    dealerTotalP.textContent=dealerHand.length>0 ? `${dealerHand[0].value}${dealerHand[0].suit} + ?` : 'Total: ?';
+  } else {
+    dealerTotalP.textContent=`Total: ${calculateTotal(dealerHand)}`;
+  }
 }
 
+// REVEAL DEALER
 async function revealDealer(){
   dealerHidden=false;
   dealerCardsDiv.innerHTML='';
@@ -296,9 +243,9 @@ async function revealDealer(){
   updateTotals();
 }
 
+// DETERMINE WINNER
 function determineWinner(){
   const pT=calculateTotal(playerHand), dT=calculateTotal(dealerHand);
-
   if(pT>21){ resultDiv.textContent='You bust! You lose!'; resultDiv.className='result lose'; balance-=currentBet; }
   else if(dT>21 || pT>dT){ resultDiv.textContent='You win!'; resultDiv.className='result win'; balance+=currentBet; }
   else if(pT<dT){ resultDiv.textContent='Waluigi wins!'; resultDiv.className='result lose'; balance-=currentBet; }
@@ -310,14 +257,26 @@ function determineWinner(){
   hitBtn.disabled=true; standBtn.disabled=true;
   betInput.disabled=false;
 
-  if(balance >= 10000){ resultDiv.textContent='🎉 You hit $10,000! You win the casino! 🎉'; playAgainBtn.style.display='none'; }
+  if(balance>=10000){ resultDiv.textContent='🎉 You hit $10,000! You win the casino! 🎉'; playAgainBtn.style.display='none'; }
   else if(balance<=0){ resultDiv.textContent='💀 You are bankrupt! Game over! 💀'; playAgainBtn.style.display='none'; }
 }
 
-async function dealerPlay(){ await revealDealer(); while(calculateTotal(dealerHand)<17){ let card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card); } determineWinner(); }
+// DEALER PLAY LOGIC
+async function dealerPlay(){
+  await revealDealer();
+  while(calculateTotal(dealerHand)<17){
+    let card=drawCard();
+    dealerHand.push(card);
+    await dealCard(dealerCardsDiv,card);
+    updateTotals(); // <--- update after each card
+    await sleep(300);
+  }
+  determineWinner();
+}
 
+// START ROUND
 async function startRound(){
-  currentBet = parseInt(betInput.value)||1;
+  currentBet=parseInt(betInput.value)||1;
   if(currentBet>balance) currentBet=balance;
   betInput.disabled=true;
 
@@ -328,6 +287,7 @@ async function startRound(){
   playerTotalP.textContent='Total: 0'; dealerTotalP.textContent='Total: ?';
   hitBtn.disabled=false; standBtn.disabled=false;
 
+  // Initial Deal
   let card;
   card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card);
   card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card);
@@ -337,7 +297,15 @@ async function startRound(){
   updateTotals();
 }
 
-hitBtn.addEventListener('click', async ()=>{ if(gameOver||animating)return; let card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card); updateTotals(); if(calculateTotal(playerHand)>21) determineWinner(); });
+// EVENT LISTENERS
+hitBtn.addEventListener('click', async ()=>{
+  if(gameOver||animating) return;
+  let card=drawCard(); playerHand.push(card);
+  await dealCard(playerCardsDiv,card);
+  updateTotals();
+  if(calculateTotal(playerHand)>21) determineWinner();
+});
+
 standBtn.addEventListener('click', dealerPlay);
 playAgainBtn.addEventListener('click', startRound);
 playBtn.addEventListener('click', ()=>{ startScreen.style.display='none'; gameContainer.style.display='flex'; startRound(); });
