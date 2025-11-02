@@ -12,7 +12,7 @@
 body {
   background: 
     radial-gradient(circle at center, rgba(26,0,41,0.7) 0%, rgba(10,0,18,0.9) 100%),
-    url('https://i.imgur.com/9Qqv2xV.png') no-repeat center center;
+    url('images/WaluigiBackground.png') no-repeat center center;
   background-size: cover;
   color: white;
   font-family: 'Orbitron', sans-serif;
@@ -215,28 +215,25 @@ button:hover {
 <!-- Lore Modal -->
 <div id="lore-modal">
   <button class="close-btn">✖ Close</button>
-  <h2>Deep Lore of Waluigi’s Casino</h2>
+  <h2>The Dark Lore of Waluigi’s Casino</h2>
   <p>
-    Long ago, deep within the data cloud of the Mushroom Kingdom, Waluigi was tired of losing every game he entered. Tennis? Rigged. Kart racing? Biased referees. Smash Bros? Don’t even start.
+    In the forgotten corners of the Mushroom Kingdom, where glitches fester and shadows linger, Waluigi plotted his vengeance. A lifetime of losses had hardened him—every tennis match, every kart race, every tournament had chipped away at his patience, and every humiliation had sharpened his cunning.
   </p>
   <p>
-    So, he took matters into his own gloved hands. He built a casino in cyberspace, hidden behind a firewall powered by pure salt and tears of Luigi’s losses.
+    So he disappeared into the digital void, a place no plumber dared to tread. There, in the silent glow of corrupted data streams, he forged his own empire: a casino not of brick and mortar, but of code and chaos.
   </p>
   <p>
-    Every chip is encrypted. Every deck is shuffled by an algorithm fueled by Waluigi’s rage. Those who enter the neon void of Waluigi’s Casino risk not just their coins — but their pride.
+    The neon lights pulse with the beat of his fury. Chips are minted from his bitterness, and each deck of cards is shuffled with the precision of a mind consumed by obsession. To enter is to gamble more than coins—you wager your pride, your nerve, your very sense of reality.
   </p>
   <p>
-    They say if you win enough rounds, you’ll hear Waluigi whisper through your screen: <br>
-    <em>“Finally... luck is on MY side, wahaha!”</em>
+    Players whisper of the hidden rules, the traps encoded deep in the algorithm, and the laughter that echoes through empty servers when someone dares to win too much. They say Waluigi’s eyes watch from every shadow, calculating, waiting, and remembering every slight.
   </p>
-  <p>But no one ever has.</p>
+  <p>
+    And if fortune favors you enough to reach the pinnacle of his neon fortress, a distorted voice may hiss through your speakers, cold and triumphant: <br>
+    <em>“Finally… my moment. Remember this face, for luck will never again leave it.”</em>
+  </p>
+  <p>Few leave unchanged. Fewer leave at all.</p>
 </div>
-
-<!-- AUDIO -->
-<audio id="bg-music" loop src="https://cdn.pixabay.com/download/audio/2022/10/25/audio_bcae960b77.mp3?filename=casino-night-124504.mp3"></audio>
-<audio id="deal-sound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_4dfe9a2f16.mp3?filename=card-flip-1-98336.mp3"></audio>
-<audio id="win-sound" src="https://cdn.pixabay.com/download/audio/2021/09/01/audio_68cfde7b33.mp3?filename=success-1-6297.mp3"></audio>
-<audio id="lose-sound" src="https://cdn.pixabay.com/download/audio/2022/03/16/audio_b7eb40b8c9.mp3?filename=fail-144746.mp3"></audio>
 
 <script>
 // LORE BUTTON
@@ -248,34 +245,29 @@ loreBtn.addEventListener('click', () => { loreModal.style.display = 'block'; });
 closeLoreBtn.addEventListener('click', () => { loreModal.style.display = 'none'; });
 window.addEventListener('click', e => { if(e.target==loreModal) loreModal.style.display='none'; });
 
-// GAME SCRIPT (unchanged from previous)
+// GAME SCRIPT
 const suits = ['♠','♥','♦','♣'];
 const values = ['A','2','3','4','5','6','7','8','9','10','J','Q','K'];
 let deck=[], playerHand=[], dealerHand=[];
-let balance = 1500, gameOver=false, dealerHidden=true, animating=false;
-let currentBet = 100;
+let balance=1500, gameOver=false, dealerHidden=true, animating=false;
+let currentBet=100;
 
-const playerCardsDiv = document.getElementById('player-cards');
-const dealerCardsDiv = document.getElementById('dealer-cards');
-const playerTotalP = document.getElementById('player-total');
-const dealerTotalP = document.getElementById('dealer-total');
-const resultDiv = document.querySelector('.result');
-const balanceDiv = document.querySelector('.balance');
-const hitBtn = document.querySelector('.hit');
-const standBtn = document.querySelector('.stand');
-const playAgainBtn = document.querySelector('.play-again');
-const startScreen = document.getElementById('start-screen');
-const gameContainer = document.getElementById('game-container');
-const playBtn = document.getElementById('play-btn');
-const betInput = document.getElementById('bet-amount');
-
-const bgMusic = document.getElementById('bg-music');
-const dealSound = document.getElementById('deal-sound');
-const winSound = document.getElementById('win-sound');
-const loseSound = document.getElementById('lose-sound');
+const playerCardsDiv=document.getElementById('player-cards');
+const dealerCardsDiv=document.getElementById('dealer-cards');
+const playerTotalP=document.getElementById('player-total');
+const dealerTotalP=document.getElementById('dealer-total');
+const resultDiv=document.querySelector('.result');
+const balanceDiv=document.querySelector('.balance');
+const hitBtn=document.querySelector('.hit');
+const standBtn=document.querySelector('.stand');
+const playAgainBtn=document.querySelector('.play-again');
+const startScreen=document.getElementById('start-screen');
+const gameContainer=document.getElementById('game-container');
+const playBtn=document.getElementById('play-btn');
+const betInput=document.getElementById('bet-amount');
 
 function createDeck(){ deck=[]; for(let s of suits) for(let v of values) deck.push({value:v,suit:s}); }
-function shuffleDeck(){ for(let i=deck.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [deck[i],deck[j]]=[deck[j],deck[i]]; }}
+function shuffleDeck(){ for(let i=deck.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [deck[i],deck[j]]=[deck[j],deck[i]]; } }
 function drawCard(){ if(deck.length===0){ createDeck(); shuffleDeck(); } return deck.pop(); }
 function calculateTotal(hand){ let t=0, aces=0; for(let c of hand){ if(['J','Q','K'].includes(c.value)) t+=10; else if(c.value==='A'){t+=11; aces++;} else t+=parseInt(c.value);} while(t>21 && aces>0){t-=10; aces--;} return t; }
 function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
@@ -286,7 +278,6 @@ async function dealCard(targetDiv, card, hide=false){
   el.className='card';
   el.textContent=hide?'🂠':`${card.value}${card.suit}`;
   targetDiv.appendChild(el);
-  dealSound.currentTime=0; dealSound.play().catch(()=>{});
   await sleep(100);
   el.classList.add('show');
   await sleep(300);
@@ -295,10 +286,7 @@ async function dealCard(targetDiv, card, hide=false){
 
 function updateTotals(){
   playerTotalP.textContent=`Total: ${calculateTotal(playerHand)}`;
-  if(dealerHidden){
-    let vTotal = calculateTotal([dealerHand[0]]);
-    dealerTotalP.textContent=`Total: ${vTotal} + ?`;
-  } else dealerTotalP.textContent=`Total: ${calculateTotal(dealerHand)}`;
+  dealerTotalP.textContent = dealerHidden ? `Total: ${calculateTotal([dealerHand[0]])} + ?` : `Total: ${calculateTotal(dealerHand)}`;
 }
 
 async function revealDealer(){
@@ -309,88 +297,50 @@ async function revealDealer(){
 }
 
 function determineWinner(){
-  currentBet = parseInt(betInput.value) || 1;
-  if(currentBet > balance) currentBet = balance;
+  const pT=calculateTotal(playerHand), dT=calculateTotal(dealerHand);
 
-  const pT = calculateTotal(playerHand), dT = calculateTotal(dealerHand);
-  if(pT>21){
-    resultDiv.textContent='You bust! You lose!';
-    loseSound.currentTime=0; loseSound.play().catch(()=>{});
-    resultDiv.className='result lose';
-    balance -= currentBet;
-  } else if(dT>21 || pT>dT){
-    resultDiv.textContent='You win!';
-    winSound.currentTime=0; winSound.play().catch(()=>{});
-    resultDiv.className='result win';
-    balance += currentBet;
-  } else if(pT<dT){
-    resultDiv.textContent='Waluigi wins!';
-    loseSound.currentTime=0; loseSound.play().catch(()=>{});
-    resultDiv.className='result lose';
-    balance -= currentBet;
-  } else {
-    resultDiv.textContent='Push!';
-    resultDiv.className='result';
-    resultDiv.style.color='#00CFFF';
-  }
+  if(pT>21){ resultDiv.textContent='You bust! You lose!'; resultDiv.className='result lose'; balance-=currentBet; }
+  else if(dT>21 || pT>dT){ resultDiv.textContent='You win!'; resultDiv.className='result win'; balance+=currentBet; }
+  else if(pT<dT){ resultDiv.textContent='Waluigi wins!'; resultDiv.className='result lose'; balance-=currentBet; }
+  else { resultDiv.textContent='Push!'; resultDiv.className='result'; resultDiv.style.color='#00CFFF'; }
 
-  balanceDiv.textContent = `💰 $${balance}`;
+  balanceDiv.textContent=`💰 $${balance}`;
   playAgainBtn.style.display='inline-block';
-  gameOver = true;
-
-  if(balance >= 10000){
-    resultDiv.textContent = '🎉 You hit $10,000! You win the casino! 🎉';
-    resultDiv.className = 'result win';
-    hitBtn.disabled = true; standBtn.disabled = true; playAgainBtn.style.display = 'none';
-  } else if(balance <= 0){
-    resultDiv.textContent = '💀 You are bankrupt! Game over! 💀';
-    resultDiv.className = 'result lose';
-    hitBtn.disabled = true; standBtn.disabled = true; playAgainBtn.style.display = 'none';
-  }
-}
-
-async function dealerPlay(){
-  if(animating||gameOver) return;
+  gameOver=true;
   hitBtn.disabled=true; standBtn.disabled=true;
-  await revealDealer();
-  while(calculateTotal(dealerHand)<17){
-    const c=drawCard(); dealerHand.push(c); await dealCard(dealerCardsDiv,c); updateTotals();
-  }
-  determineWinner();
-  hitBtn.disabled=false; standBtn.disabled=false;
+  betInput.disabled=false;
+
+  if(balance >= 10000){ resultDiv.textContent='🎉 You hit $10,000! You win the casino! 🎉'; playAgainBtn.style.display='none'; }
+  else if(balance<=0){ resultDiv.textContent='💀 You are bankrupt! Game over! 💀'; playAgainBtn.style.display='none'; }
 }
 
-hitBtn.addEventListener('click', async ()=>{
-  if(gameOver||animating) return;
-  const c=drawCard(); playerHand.push(c); await dealCard(playerCardsDiv,c); updateTotals();
-  if(calculateTotal(playerHand)>21) determineWinner();
-});
-
-standBtn.addEventListener('click', dealerPlay);
-playAgainBtn.addEventListener('click', async ()=>{ if(animating) return; await startRound(); });
-playBtn.addEventListener('click', async ()=>{
-  startScreen.style.display='none'; gameContainer.style.display='flex';
-  bgMusic.volume=0.4; bgMusic.play().catch(()=>{});
-  await startRound();
-});
+async function dealerPlay(){ await revealDealer(); while(calculateTotal(dealerHand)<17){ let card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card); } determineWinner(); }
 
 async function startRound(){
-  currentBet = parseInt(betInput.value) || 1;
-  if(currentBet > balance) currentBet = balance;
+  currentBet = parseInt(betInput.value)||1;
+  if(currentBet>balance) currentBet=balance;
+  betInput.disabled=true;
 
-  createDeck(); shuffleDeck(); playerHand=[]; dealerHand=[]; dealerHidden=true; gameOver=false;
+  createDeck(); shuffleDeck();
+  playerHand=[]; dealerHand=[]; dealerHidden=true; gameOver=false;
   resultDiv.textContent=''; resultDiv.className='result'; resultDiv.style.color='white';
   playAgainBtn.style.display='none'; playerCardsDiv.innerHTML=''; dealerCardsDiv.innerHTML='';
   playerTotalP.textContent='Total: 0'; dealerTotalP.textContent='Total: ?';
+  hitBtn.disabled=false; standBtn.disabled=false;
 
   let card;
   card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card);
   card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card);
-  card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card)
+  card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card);
   card=drawCard(); dealerHand.push(card); await dealCard(dealerCardsDiv,card,true);
 
   updateTotals();
 }
+
+hitBtn.addEventListener('click', async ()=>{ if(gameOver||animating)return; let card=drawCard(); playerHand.push(card); await dealCard(playerCardsDiv,card); updateTotals(); if(calculateTotal(playerHand)>21) determineWinner(); });
+standBtn.addEventListener('click', dealerPlay);
+playAgainBtn.addEventListener('click', startRound);
+playBtn.addEventListener('click', ()=>{ startScreen.style.display='none'; gameContainer.style.display='flex'; startRound(); });
 </script>
 </body>
 </html>
